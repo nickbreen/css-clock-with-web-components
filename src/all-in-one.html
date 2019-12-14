@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>All In One Example</title>
+        <meta charset="utf-8"/>
+        <style>
+            body
+            {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+        </style>
+        <template id="clock">
+            <style>
+                :host
+                {
+                    background: white url(face.svg) no-repeat center;
+                    background-size: 90%;
+                    border: 1px red solid;
+                    border-radius: 50%;
+                    position: relative;
+                    height: 20em;
+                    width: 20em;
+                }
+
+                :host:after 
+                {
+                    background: #000;
+                    border-radius: 50%;
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 5%;
+                    height: 5%;
+                }
+            </style>
+            
+            <div part=hours></div>
+            <div part=minutes></div>
+            <div part=seconds></div>
+        </template>
+        <script>
+            class WorldClock extends HTMLElement
+            {
+                constructor()
+                {
+                    super();
+                    this.attachShadow({mode: 'open'}).appendChild(
+                        document.getElementById("clock").content.cloneNode(true));                    
+                }
+
+                connectedCallback() 
+                {}
+
+                attributeChangedCallback()
+                {}
+            }
+            customElements.define('world-clock', WorldClock);
+        </script>
+    </head>
+    <body>
+
+        <world-clock></world-clock>
+
+        <world-clock></world-clock>
+        
+    </body>
+</html>
