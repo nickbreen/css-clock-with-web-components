@@ -13,8 +13,14 @@
         </style>
         <template id="clock">
             <style>
+                :host([hidden])
+                {
+                    display: none;
+                }
+
                 :host
                 {
+                    display: block;
                     background: white url(face.svg) no-repeat center;
                     background-size: 90%;
                     border: 1px red solid;
@@ -115,6 +121,9 @@
                     }
                 }
             </style>
+            <style>
+                /* Placeholder for animation-delay rules */
+            </style>
             <div part=hours></div>
             <div part=minutes></div>
             <div part=seconds></div>
@@ -126,7 +135,7 @@
                 {
                     super();
                     this.attachShadow({mode: 'open'}).appendChild(
-                        document.getElementById("clock").content.cloneNode(true));                    
+                        document.getElementById("clock").content.cloneNode(true));
                 }
 
                 delays(hours, minutes, seconds)
@@ -134,15 +143,15 @@
                     return [
                         {
                             part: 'hours',
-                            delay: -hours * 60 * 60 - minutes * 60 - seconds
+                            delay: seconds + (minutes * 60) + (hours * 60 * 60)
                         },
                         {
                             part: 'minutes',
-                            delay: -minutes * 60 - seconds
+                            delay: seconds + (minutes * 60)
                         },
                         {
                             part: 'seconds',
-                            delay: -seconds
+                            delay: seconds
                         }
                     ];
                 }
@@ -150,16 +159,24 @@
                 setTime(d)
                 {
                     const h = d.getHours(), m = d.getMinutes(), s = d.getSeconds();
-                    const styleSheet = this.shadowRoot.styleSheets[0];
+                    const styleSheet = this.shadowRoot.styleSheets[1];
+                    while (styleSheet.cssRules.length)
+                    {
+                        styleSheet.deleteRule(0);
+                    }
                     this.delays(h, m, s)
-                        .map(({part, delay}) => `div[part=${part}] { animation-delay: ${delay}s }`)
-                        .forEach(rule => styleSheet.insertRule(rule, styleSheet.cssRules.length));
-
+                        .map(({part, delay}) => `div[part=${part}] { animation-delay: -${delay}s }`)
+                        .forEach(rule => styleSheet.insertRule(rule));
                 }
 
                 connectedCallback()
                 {
-                    this.setTime(this.hasAttribute('date') ? new Date(this.getAttribute('date')) : new Date);
+                    if (!this.hasAttribute("iso-date-time"))
+                    {
+                        this.setAttribute("iso-date-time", new Date().toISOString());
+                    }
+
+                    this.setTime(new Date(this.getAttribute('iso-date-time')));
                 }
             }
             customElements.define('world-clock', WorldClock);
@@ -169,11 +186,9 @@
 
         <world-clock></world-clock>
 
-        <world-clock date="2019-12-14T19:59:45+13:00"></world-clock>
+        <world-clock iso-date-time="2019-12-14T19:59:55+13:00"></world-clock>
 
-        <world-clock date="2019-12-14T19:59:45+13:00"></world-clock>
-        
-        <world-clock date="2019-12-14T19:59:45Z"></world-clock>
+        <world-clock iso-date-time="2019-12-14T23:59:55+13:00"></world-clock>
         
     </body>
 </html>
