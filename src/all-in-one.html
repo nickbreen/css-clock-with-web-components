@@ -65,30 +65,134 @@
                 div[part=numeral]
                 {
                     position: absolute;
-                    top: 50%; 
+                    top: 50%;
                     left: 50%;
                     counter-increment: numerals;
                 }
 
-                div[part=numeral]:after
+                div[part=numeral]:before
                 {
                     content: counter(numerals, upper-roman);
                 }
 
-                div[part=numeral]:nth-of-type( 1) { transform: translate(-50%, -50%) rotate(-60deg) translateX(9em) rotate(  60deg) }
-                div[part=numeral]:nth-of-type( 2) { transform: translate(-50%, -50%) rotate(-30deg) translateX(9em) rotate(  30deg) }
-                div[part=numeral]:nth-of-type( 3) { transform: translate(-50%, -50%) rotate(  0deg) translateX(9em) rotate(   0deg) }
-                div[part=numeral]:nth-of-type( 4) { transform: translate(-50%, -50%) rotate( 30deg) translateX(9em) rotate( -30deg) }
+                div[part=numeral]:nth-of-type( 1) { transform: translate(-50%, -50%) rotate(-60deg) translateX(9em) rotate(  60deg); }
+                div[part=numeral]:nth-of-type( 2) { transform: translate(-50%, -50%) rotate(-30deg) translateX(9em) rotate(  30deg); }
+                div[part=numeral]:nth-of-type( 3) { transform: translate(-50%, -50%) rotate(  0deg) translateX(9em) rotate(   0deg); }
+                
+                div[part=numeral]:nth-of-type( 4) { transform: translate(-50%, -50%) rotate( 30deg) translateX(9em) rotate( -30deg); }
+                div[part=numeral]:nth-of-type( 5) { transform: translate(-50%, -50%) rotate( 60deg) translateX(9em) rotate( -60deg); }
+                div[part=numeral]:nth-of-type( 6) { transform: translate(-50%, -50%) rotate( 90deg) translateX(9em) rotate( -90deg); }
 
-                div[part=numeral]:nth-of-type( 5) { transform: translate(-50%, -50%) rotate( 60deg) translateX(9em) rotate( -60deg) }
-                div[part=numeral]:nth-of-type( 6) { transform: translate(-50%, -50%) rotate( 90deg) translateX(9em) rotate( -90deg) }
-                div[part=numeral]:nth-of-type( 7) { transform: translate(-50%, -50%) rotate(120deg) translateX(9em) rotate(-120deg) }
-                div[part=numeral]:nth-of-type( 8) { transform: translate(-50%, -50%) rotate(150deg) translateX(9em) rotate(-150deg) }
+                div[part=numeral]:nth-of-type( 7) { transform: translate(-50%, -50%) rotate(120deg) translateX(9em) rotate(-120deg); }
+                div[part=numeral]:nth-of-type( 8) { transform: translate(-50%, -50%) rotate(150deg) translateX(9em) rotate(-150deg); }
+                div[part=numeral]:nth-of-type( 9) { transform: translate(-50%, -50%) rotate(180deg) translateX(9em) rotate(-180deg); }
 
-                div[part=numeral]:nth-of-type( 9) { transform: translate(-50%, -50%) rotate(180deg) translateX(9em) rotate(-180deg) }
-                div[part=numeral]:nth-of-type(10) { transform: translate(-50%, -50%) rotate(210deg) translateX(9em) rotate(-210deg) }
-                div[part=numeral]:nth-of-type(11) { transform: translate(-50%, -50%) rotate(240deg) translateX(9em) rotate(-240deg) }
-                div[part=numeral]:nth-of-type(12) { transform: translate(-50%, -50%) rotate(270deg) translateX(9em) rotate(-270deg) }
+                div[part=numeral]:nth-of-type(10) { transform: translate(-50%, -50%) rotate(210deg) translateX(9em) rotate(-210deg); }
+                div[part=numeral]:nth-of-type(11) { transform: translate(-50%, -50%) rotate(240deg) translateX(9em) rotate(-240deg); }
+                div[part=numeral]:nth-of-type(12) { transform: translate(-50%, -50%) rotate(270deg) translateX(9em) rotate(-270deg); }
+
+                div[part=numeral]:after
+                {
+                    content: "";
+                    background: black;
+                    position: absolute;
+                    height: 0.25em;
+                    width: 2px;
+                    left: 50%;
+                    top: 50%;
+                }
+
+                div[part=numeral]:nth-of-type( 1):after { transform: translate(-50%, -50%) rotate( 30deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type( 2):after { transform: translate(-50%, -50%) rotate( 60deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type( 3):after { transform: translate(-50%, -50%) rotate( 90deg) translate(0, -360%); }
+                
+                div[part=numeral]:nth-of-type( 4):after { transform: translate(-50%, -50%) rotate(120deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type( 5):after { transform: translate(-50%, -50%) rotate(150deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type( 6):after { transform: translate(-50%, -50%) rotate(180deg) translate(0, -360%); }
+
+                div[part=numeral]:nth-of-type( 7):after { transform: translate(-50%, -50%) rotate(210deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type( 8):after { transform: translate(-50%, -50%) rotate(240deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type( 9):after { transform: translate(-50%, -50%) rotate(270deg) translate(0, -360%); }
+
+                div[part=numeral]:nth-of-type(10):after { transform: translate(-50%, -50%) rotate(300deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type(11):after { transform: translate(-50%, -50%) rotate(330deg) translate(0, -360%); }
+                div[part=numeral]:nth-of-type(12):after { transform: translate(-50%, -50%) rotate(360deg) translate(0, -360%); }
+
+                span[part=tick]
+                {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                }
+
+                span[part=tick]:after
+                {
+                    content: "";
+                    background: #999;
+                    position: absolute;
+                    height: 0.5em;
+                    width: 1px;
+                }
+
+                span[part=tick]:nth-of-type(1) { transform: translate(-50%, -50%) rotate(6deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(2) { transform: translate(-50%, -50%) rotate(12deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(3) { transform: translate(-50%, -50%) rotate(18deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(4) { transform: translate(-50%, -50%) rotate(24deg) translateX(10em) rotate(90deg); }
+                
+                span[part=tick]:nth-of-type(5) { transform: translate(-50%, -50%) rotate(36deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(6) { transform: translate(-50%, -50%) rotate(42deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(7) { transform: translate(-50%, -50%) rotate(48deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(8) { transform: translate(-50%, -50%) rotate(54deg) translateX(10em) rotate(90deg); }
+                
+                span[part=tick]:nth-of-type(9) { transform: translate(-50%, -50%) rotate(66deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(10) { transform: translate(-50%, -50%) rotate(72deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(11) { transform: translate(-50%, -50%) rotate(78deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(12) { transform: translate(-50%, -50%) rotate(84deg) translateX(10em) rotate(90deg); }
+                
+                span[part=tick]:nth-of-type(13) { transform: translate(-50%, -50%) rotate(96deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(14) { transform: translate(-50%, -50%) rotate(102deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(15) { transform: translate(-50%, -50%) rotate(108deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(16) { transform: translate(-50%, -50%) rotate(114deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(17) { transform: translate(-50%, -50%) rotate(126deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(18) { transform: translate(-50%, -50%) rotate(132deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(19) { transform: translate(-50%, -50%) rotate(138deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(20) { transform: translate(-50%, -50%) rotate(144deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(21) { transform: translate(-50%, -50%) rotate(156deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(22) { transform: translate(-50%, -50%) rotate(162deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(23) { transform: translate(-50%, -50%) rotate(168deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(24) { transform: translate(-50%, -50%) rotate(174deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(25) { transform: translate(-50%, -50%) rotate(186deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(26) { transform: translate(-50%, -50%) rotate(192deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(27) { transform: translate(-50%, -50%) rotate(198deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(28) { transform: translate(-50%, -50%) rotate(204deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(29) { transform: translate(-50%, -50%) rotate(216deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(30) { transform: translate(-50%, -50%) rotate(222deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(31) { transform: translate(-50%, -50%) rotate(228deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(32) { transform: translate(-50%, -50%) rotate(234deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(33) { transform: translate(-50%, -50%) rotate(246deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(34) { transform: translate(-50%, -50%) rotate(252deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(35) { transform: translate(-50%, -50%) rotate(258deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(36) { transform: translate(-50%, -50%) rotate(264deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(37) { transform: translate(-50%, -50%) rotate(276deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(38) { transform: translate(-50%, -50%) rotate(282deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(39) { transform: translate(-50%, -50%) rotate(288deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(40) { transform: translate(-50%, -50%) rotate(294deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(41) { transform: translate(-50%, -50%) rotate(306deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(42) { transform: translate(-50%, -50%) rotate(312deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(43) { transform: translate(-50%, -50%) rotate(318deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(44) { transform: translate(-50%, -50%) rotate(324deg) translateX(10em) rotate(90deg); }
+
+                span[part=tick]:nth-of-type(45) { transform: translate(-50%, -50%) rotate(336deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(46) { transform: translate(-50%, -50%) rotate(342deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(47) { transform: translate(-50%, -50%) rotate(348deg) translateX(10em) rotate(90deg); }
+                span[part=tick]:nth-of-type(48) { transform: translate(-50%, -50%) rotate(354deg) translateX(10em) rotate(90deg); }
 
                 div[part=hours]
                 {
@@ -154,7 +258,7 @@
                 {
                     to 
                     {
-                        transform: rotateZ(360deg);
+                        transform: rotate(360deg);
                     }
                 }
             </style>
@@ -190,6 +294,14 @@
                 {
                     super();
                     this.attachShadow({mode: 'open'}).appendChild(template.content.cloneNode(true));
+
+                    const numerals = this.shadowRoot.querySelectorAll("div[part=numeral]");
+                    numerals.forEach((numeral, i) => {
+                        numeral.insertAdjacentHTML("afterend", `<span part=tick></span>`);
+                        numeral.insertAdjacentHTML("afterend", `<span part=tick></span>`);
+                        numeral.insertAdjacentHTML("afterend", `<span part=tick></span>`);
+                        numeral.insertAdjacentHTML("afterend", `<span part=tick></span>`);
+                    });
                 }
 
                 delays(hours, minutes, seconds)
@@ -231,6 +343,8 @@
                         this.setAttribute("iso-date-time", new Date().toISOString());
                     }
                     this.setTime(new Date(this.getAttribute('iso-date-time')));
+
+
                 }
             }
             customElements.define('world-clock', WorldClock);

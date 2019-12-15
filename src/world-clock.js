@@ -57,20 +57,56 @@ div[part=numeral]:after
     content: counter(numerals, upper-roman);
 }
 
-div[part=numeral]:nth-of-type( 1) { transform: translate(-50%, -50%) rotate(-60deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type( 2) { transform: translate(-50%, -50%) rotate(-30deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type( 3) { transform: translate(-50%, -50%) rotate(  0deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type( 4) { transform: translate(-50%, -50%) rotate( 30deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 1)
+{
+    transform: translate(-50%, -50%) rotate(-60deg) translateX(9em) rotate(  60deg);
+}
+div[part=numeral]:nth-of-type( 2)
+{
+    transform: translate(-50%, -50%) rotate(-30deg) translateX(9em) rotate(  30deg);
+}
+div[part=numeral]:nth-of-type( 3)
+{
+    transform: translate(-50%, -50%) rotate(  0deg) translateX(9em) rotate(   0deg);
+}
+div[part=numeral]:nth-of-type( 4)
+{
+    transform: translate(-50%, -50%) rotate( 30deg) translateX(9em) rotate( -30deg);
+}
 
-div[part=numeral]:nth-of-type( 5) { transform: translate(-50%, -50%) rotate( 60deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type( 6) { transform: translate(-50%, -50%) rotate( 90deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type( 7) { transform: translate(-50%, -50%) rotate(120deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type( 8) { transform: translate(-50%, -50%) rotate(150deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 5)
+{
+    transform: translate(-50%, -50%) rotate( 60deg) translateX(9em) rotate( -60deg);
+}
+div[part=numeral]:nth-of-type( 6)
+{
+    transform: translate(-50%, -50%) rotate( 90deg) translateX(9em) rotate( -90deg);
+}
+div[part=numeral]:nth-of-type( 7)
+{
+    transform: translate(-50%, -50%) rotate(120deg) translateX(9em) rotate(-120deg);
+}
+div[part=numeral]:nth-of-type( 8)
+{
+    transform: translate(-50%, -50%) rotate(150deg) translateX(9em) rotate(-150deg);
+}
 
-div[part=numeral]:nth-of-type( 9) { transform: translate(-50%, -50%) rotate(180deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type(10) { transform: translate(-50%, -50%) rotate(210deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type(11) { transform: translate(-50%, -50%) rotate(240deg) translateX(9.5em) rotate(90deg) }
-div[part=numeral]:nth-of-type(12) { transform: translate(-50%, -50%) rotate(270deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 9)
+{
+    transform: translate(-50%, -50%) rotate(180deg) translateX(9em) rotate(-180deg);
+}
+div[part=numeral]:nth-of-type(10)
+{
+    transform: translate(-50%, -50%) rotate(210deg) translateX(9em) rotate(-210deg);
+}
+div[part=numeral]:nth-of-type(11)
+{
+    transform: translate(-50%, -50%) rotate(240deg) translateX(9em) rotate(-240deg);
+}
+div[part=numeral]:nth-of-type(12)
+{
+    transform: translate(-50%, -50%) rotate(270deg) translateX(9em) rotate(-270deg);
+}
 
 div[part=hours]
 {
@@ -100,7 +136,7 @@ div[part=hours]:after
     left: 48.75%;
     top: 30%;
     width: 2.5%;
-    border-radius: 50%/5%;
+    border-radius: 50%/6%;
 }
 div[part=minutes]:after
 {
@@ -134,7 +170,7 @@ div[part=seconds]:before
 }
 @keyframes rotate {
     100% {
-        transform: rotateZ(360deg);
+        transform: rotate(360deg);
     }
 }
 `;
