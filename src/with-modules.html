@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>All In One Example</title>
+        <meta charset="utf-8"/>
+        <style>
+            body
+            {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+            }
+        </style>
+        <script type=module>
+            import WorldClock from "./world-clock/world-clock.js";
+            customElements.define('world-clock', WorldClock);
+        </script>
+    </head>
+    <body>
+
+        <world-clock></world-clock>
+
+        <world-clock iso-date-time="2019-12-14T19:59:55+13:00"></world-clock>
+
+        <world-clock iso-date-time="2019-12-14T23:59:55+13:00"></world-clock>
+        
+    </body>
+</html>
