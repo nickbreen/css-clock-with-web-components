@@ -7,10 +7,8 @@ const styleCss = `
 :host
 {
     display: block;
-    background: white url(face.svg) no-repeat center;
-    background-size: 90%;
-    border: 1px red solid;
     border-radius: 50%;
+    shape-outside: circle();
     position: relative;
     height: 20em;
     width: 20em;
@@ -31,7 +29,8 @@ const styleCss = `
 
 div[part=hours], 
 div[part=minutes],
-div[part=seconds] 
+div[part=seconds],
+div[part=face]
 {
     position: absolute;
     top: 0;
@@ -39,17 +38,51 @@ div[part=seconds]
     bottom: 0;
     left: 0;
 }
+
+div[part=face]
+{
+    counter-reset: numerals;
+}
+
+div[part=numeral]
+{
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    counter-increment: numerals;
+}
+
+div[part=numeral]:after
+{
+    content: counter(numerals, upper-roman);
+}
+
+div[part=numeral]:nth-of-type( 1) { transform: translate(-50%, -50%) rotate(-60deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 2) { transform: translate(-50%, -50%) rotate(-30deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 3) { transform: translate(-50%, -50%) rotate(  0deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 4) { transform: translate(-50%, -50%) rotate( 30deg) translateX(9.5em) rotate(90deg) }
+
+div[part=numeral]:nth-of-type( 5) { transform: translate(-50%, -50%) rotate( 60deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 6) { transform: translate(-50%, -50%) rotate( 90deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 7) { transform: translate(-50%, -50%) rotate(120deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type( 8) { transform: translate(-50%, -50%) rotate(150deg) translateX(9.5em) rotate(90deg) }
+
+div[part=numeral]:nth-of-type( 9) { transform: translate(-50%, -50%) rotate(180deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type(10) { transform: translate(-50%, -50%) rotate(210deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type(11) { transform: translate(-50%, -50%) rotate(240deg) translateX(9.5em) rotate(90deg) }
+div[part=numeral]:nth-of-type(12) { transform: translate(-50%, -50%) rotate(270deg) translateX(9.5em) rotate(90deg) }
+
 div[part=hours]
 {
-    animation: rotate ${12 * 60 * 60}s infinite linear;
+    animation: rotate 43200s infinite linear;
 }
 div[part=minutes]
 {
-    animation: rotate ${60 * 60}s infinite steps(60);
+    animation: rotate 3600s infinite steps(60);
 }
 div[part=seconds] 
 {
-    animation: rotate ${60}s infinite steps(60);
+    animation: rotate 60s infinite steps(60);
 }
 
 div[part=hours]:after,
@@ -103,29 +136,41 @@ div[part=seconds]:before
     100% {
         transform: rotateZ(360deg);
     }
-}`;
-
+}
+`;
 
 const templateHtml = `
 <style>${styleCss}</style>
 <style>
     /* Placeholder for animation-delay rules */
 </style>
+<div part=face>
+    <div part=numeral></div>
+    <div part=numeral></div>
+    <div part=numeral></div>
+    <div part=numeral></div>
+
+    <div part=numeral></div>
+    <div part=numeral></div>
+    <div part=numeral></div>
+    <div part=numeral></div>
+
+    <div part=numeral></div>
+    <div part=numeral></div>
+    <div part=numeral></div>
+    <div part=numeral></div>
+</div>
 <div part=hours></div>
 <div part=minutes></div>
 <div part=seconds></div>
-`
+`;
 
 export default class WorldClock extends HTMLElement
 {
     constructor()
     {
         super();
-        const template = this.ownerDocument.createElement('template');
-        template.innerHTML = templateHtml;
-
-        this.attachShadow({mode: 'open'}).appendChild(
-            template.content.cloneNode(true));
+        this.attachShadow({mode: 'open'}).innerHTML = templateHtml;
     }
 
     delays(hours, minutes, seconds)
@@ -165,7 +210,11 @@ export default class WorldClock extends HTMLElement
         {
             this.setAttribute("iso-date-time", new Date().toISOString());
         }
-
+        else if (isNaN(Date.parse(this.getAttribute('iso-date-time'))))
+        {
+            console.error("invalid iso-date-time", this.getAttribute('iso-date-time'));
+            this.setAttribute("iso-date-time", new Date().toISOString());
+        }
         this.setTime(new Date(this.getAttribute('iso-date-time')));
     }
 }

@@ -10,6 +10,10 @@
                 flex-wrap: wrap;
                 justify-content: space-around;
             }
+            world-clock
+            {                
+                border: double;
+            }
         </style>
         <template id="clock">
             <style>
@@ -21,13 +25,11 @@
                 :host
                 {
                     display: block;
-                    background: white url(face.svg) no-repeat center;
-                    background-size: 90%;
-                    border: 1px red solid;
                     border-radius: 50%;
                     position: relative;
                     height: 20em;
                     width: 20em;
+                    shape-outside: circle();
                 }
 
                 :host:before 
@@ -42,10 +44,11 @@
                     width: 5%;
                     height: 5%;
                 }
-                
+                                
                 div[part=hours], 
                 div[part=minutes],
-                div[part=seconds] 
+                div[part=seconds],
+                div[part=face]
                 {
                     position: absolute;
                     top: 0;
@@ -53,6 +56,40 @@
                     bottom: 0;
                     left: 0;
                 }
+
+                div[part=face]
+                {
+                    counter-reset: numerals;
+                }
+
+                div[part=numeral]
+                {
+                    position: absolute;
+                    top: 50%; 
+                    left: 50%;
+                    counter-increment: numerals;
+                }
+
+                div[part=numeral]:after
+                {
+                    content: counter(numerals, upper-roman);
+                }
+
+                div[part=numeral]:nth-of-type( 1) { transform: translate(-50%, -50%) rotate(-60deg) translateX(9em) rotate(  60deg) }
+                div[part=numeral]:nth-of-type( 2) { transform: translate(-50%, -50%) rotate(-30deg) translateX(9em) rotate(  30deg) }
+                div[part=numeral]:nth-of-type( 3) { transform: translate(-50%, -50%) rotate(  0deg) translateX(9em) rotate(   0deg) }
+                div[part=numeral]:nth-of-type( 4) { transform: translate(-50%, -50%) rotate( 30deg) translateX(9em) rotate( -30deg) }
+
+                div[part=numeral]:nth-of-type( 5) { transform: translate(-50%, -50%) rotate( 60deg) translateX(9em) rotate( -60deg) }
+                div[part=numeral]:nth-of-type( 6) { transform: translate(-50%, -50%) rotate( 90deg) translateX(9em) rotate( -90deg) }
+                div[part=numeral]:nth-of-type( 7) { transform: translate(-50%, -50%) rotate(120deg) translateX(9em) rotate(-120deg) }
+                div[part=numeral]:nth-of-type( 8) { transform: translate(-50%, -50%) rotate(150deg) translateX(9em) rotate(-150deg) }
+
+                div[part=numeral]:nth-of-type( 9) { transform: translate(-50%, -50%) rotate(180deg) translateX(9em) rotate(-180deg) }
+                div[part=numeral]:nth-of-type(10) { transform: translate(-50%, -50%) rotate(210deg) translateX(9em) rotate(-210deg) }
+                div[part=numeral]:nth-of-type(11) { transform: translate(-50%, -50%) rotate(240deg) translateX(9em) rotate(-240deg) }
+                div[part=numeral]:nth-of-type(12) { transform: translate(-50%, -50%) rotate(270deg) translateX(9em) rotate(-270deg) }
+
                 div[part=hours]
                 {
                     animation: rotate 43200s infinite linear;
@@ -124,6 +161,22 @@
             <style>
                 /* Placeholder for animation-delay rules */
             </style>
+            <div part=face>
+                <div part=numeral></div>
+                <div part=numeral></div>
+                <div part=numeral></div>
+                <div part=numeral></div>
+            
+                <div part=numeral></div>
+                <div part=numeral></div>
+                <div part=numeral></div>
+                <div part=numeral></div>
+            
+                <div part=numeral></div>
+                <div part=numeral></div>
+                <div part=numeral></div>
+                <div part=numeral></div>
+            </div>
             <div part=hours></div>
             <div part=minutes></div>
             <div part=seconds></div>
@@ -136,8 +189,7 @@
                 constructor()
                 {
                     super();
-                    this.attachShadow({mode: 'open'})
-                            .appendChild(template.content.cloneNode(true));
+                    this.attachShadow({mode: 'open'}).appendChild(template.content.cloneNode(true));
                 }
 
                 delays(hours, minutes, seconds)
@@ -173,7 +225,11 @@
                     {
                         this.setAttribute("iso-date-time", new Date().toISOString());
                     }
-
+                    else if (isNaN(Date.parse(this.getAttribute('iso-date-time'))))
+                    {
+                        console.error("invalid iso-date-time", this.getAttribute('iso-date-time'));
+                        this.setAttribute("iso-date-time", new Date().toISOString());
+                    }
                     this.setTime(new Date(this.getAttribute('iso-date-time')));
                 }
             }
@@ -184,7 +240,7 @@
 
         <world-clock></world-clock>
 
-        <world-clock iso-date-time="2019-12-14T19:59:55+13:00"></world-clock>
+        <world-clock iso-date-time="+11:00"></world-clock> <!-- invalid, defaults to local time -->
 
         <world-clock iso-date-time="2019-12-14T23:59:55+13:00"></world-clock>
         
