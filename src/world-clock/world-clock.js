@@ -41,17 +41,15 @@ div[part=seconds]
 }
 div[part=hours]
 {
-    animation: rotate 43200s infinite linear;
+    animation: rotate ${12 * 60 * 60}s infinite linear;
 }
 div[part=minutes]
 {
-    animation: rotate 3600s infinite steps(60);
-    /* transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44); */
+    animation: rotate ${60 * 60}s infinite steps(60);
 }
 div[part=seconds] 
 {
-    animation: rotate 60s infinite steps(60);
-    /* transition: transform 0.2s cubic-bezier(.4,2.08,.55,.44); */
+    animation: rotate ${60}s infinite steps(60);
 }
 
 div[part=hours]:after,

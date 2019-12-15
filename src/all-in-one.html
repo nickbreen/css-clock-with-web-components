@@ -113,8 +113,10 @@
                     width: 2.5%;
                     height: 2.5%;
                 }
-                @keyframes rotate {
-                    100% {
+                @keyframes rotate 
+                {
+                    to 
+                    {
                         transform: rotateZ(360deg);
                     }
                 }
@@ -127,13 +129,15 @@
             <div part=seconds></div>
         </template>
         <script>
+            const template = document.getElementById("clock");
+
             class WorldClock extends HTMLElement
             {
                 constructor()
                 {
                     super();
-                    this.attachShadow({mode: 'open'}).appendChild(
-                        document.getElementById("clock").content.cloneNode(true));
+                    this.attachShadow({mode: 'open'})
+                            .appendChild(template.content.cloneNode(true));
                 }
 
                 delays(hours, minutes, seconds)
@@ -158,10 +162,6 @@
                 {
                     const h = d.getHours(), m = d.getMinutes(), s = d.getSeconds();
                     const styleSheet = this.shadowRoot.styleSheets[1];
-                    while (styleSheet.cssRules.length)
-                    {
-                        styleSheet.deleteRule(0);
-                    }
                     this.delays(h, m, s)
                         .map(({part, delay}) => `div[part=${part}] { animation-delay: -${delay}s }`)
                         .forEach(rule => styleSheet.insertRule(rule));
