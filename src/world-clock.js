@@ -1,4 +1,5 @@
-const styleCss = `                :host([hidden])
+const styleCss = `
+:host([hidden])
 {
     display: none;
 }
