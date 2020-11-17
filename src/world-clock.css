@@ -1,3 +1,16 @@
+@keyframes rotate
+{
+    to
+    {
+        transform: rotate(360deg);
+    }
+}
+
+:root
+{
+    --i: 0; /* prevent rules complaining that the variable does not exist */
+}
+
 :host([hidden])
 {
     display: none;
@@ -48,9 +61,15 @@ div[part=tick]:nth-of-type(5n+1)
     counter-increment: numerals;
 }
 
+div[part=tick]
+{
+    transform: translate(-50%, -50%) rotate( calc( calc( var(--i) ) * -6deg - 30deg ) ) translateX(10em) rotate(90deg);
+}
+
 div[part=tick]:nth-of-type(5n+1):before
 {
     content: counter(numerals, upper-roman);
+    transform: translate(-50%, 50%) rotate( calc( var(--i) * 6deg - 60deg ) );
 }
 
 div[part=tick]
@@ -140,11 +159,4 @@ div[part=seconds]:before
     transform: translate(-50%, -50%);
     width: 2.5%;
     height: 2.5%;
-}
-@keyframes rotate
-{
-    to
-    {
-        transform: rotate(360deg);
-    }
 }
