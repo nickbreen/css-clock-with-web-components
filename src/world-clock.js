@@ -1,3 +1,4 @@
+// noinspection JSUnusedLocalSymbols
 function html(strings, ...keys)
 {
     const domParser = new DOMParser()
@@ -75,60 +76,67 @@ const templateHtml = html`
 
 export default class WorldClock extends HTMLElement {
     constructor() {
-        super();
-        this.attachShadow({mode: 'open'}).appendChild(templateHtml.cloneNode(true));
+        super()
+        this.attachShadow({mode: 'open'}).appendChild(templateHtml.cloneNode(true))
     }
 
+    // noinspection JSUnusedGlobalSymbols
     static get observedAttributes() {
-        return ['iso-date-time'];
+        return ['tz']
     }
 
-    get isoDateTime() {
-        return new Date(this.getAttribute('iso-date-time'))
+    get tz() {
+        return this.getAttribute('tz')
     }
 
-    set isoDateTime(isoDateTime) {
-        this.setAttribute('iso-date-time', isoDateTime.toISOString())
+    set tz(tz) {
+        this.setAttribute('tz', tz)
         this.applyTime()
     }
 
+    // noinspection JSUnusedGlobalSymbols
     connectedCallback() {
-        if (!this.hasAttribute('iso-date-time'))
-        {
-            this.isoDateTime = new Date();
-        }
+        this.applyTime()
     }
 
+    // noinspection JSUnusedGlobalSymbols,JSUnusedLocalSymbols
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
-            case 'iso-date-time':
+            case 'tz':
                 this.applyTime()
                 break
         }
     }
 
     get delays() {
-        const d = this.isoDateTime
-        const hours = d.getHours(), minutes = d.getMinutes(), seconds = d.getSeconds()
+        const dateTimeFormat = new Intl.DateTimeFormat('default', {
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true,
+            timeZone: this.tz ? this.tz : 'UTC'});
+        const {hour, minute, second} = Object.fromEntries(dateTimeFormat.formatToParts(Date.now())
+            .filter(part => ['hour', 'minute', 'second'].indexOf(part.type) !== -1)
+            .map(({type, value}) => [type, Number.parseInt(value, 10)]));
         return [
             {
                 part: 'hours',
-                delay: seconds + (minutes * 60) + (hours * 60 * 60)
+                delay: second + (minute * 60) + (hour * 60 * 60)
             },
             {
                 part: 'minutes',
-                delay: seconds + (minutes * 60)
+                delay: second + (minute * 60)
             },
             {
                 part: 'seconds',
-                delay: seconds
+                delay: second
             }
         ];
     }
 
     applyTime() {
         this.delays.forEach(({part, delay}) => {
-            // setting this as a style attribute (rather than adding a stylesheet rule) redraws the face
+            // setting this as a style attribute (rather than adding a stylesheet rule) redraws the hands
             this.shadowRoot.querySelector(`div[part=${part}]`).style.animationDelay = `-${delay}s`
         })
     }

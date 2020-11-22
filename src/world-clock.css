@@ -39,6 +39,17 @@
     height: 5%;
 }
 
+:host:after
+{
+    color: red;
+    opacity: 50%;
+    content: attr(tz);
+    bottom: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
 div[part=hours],
 div[part=minutes],
 div[part=seconds],
@@ -63,13 +74,14 @@ div[part=tick]:nth-of-type(5n+1)
 
 div[part=tick]
 {
-    transform: translate(-50%, -50%) rotate( calc( calc( var(--i) ) * -6deg - 30deg ) ) translateX(10em) rotate(90deg);
+    transform: translate(-50%, -50%) rotate( calc( calc( var(--i) * 6deg ) - 60deg ) ) translateX(10em) rotate(90deg);
 }
 
 div[part=tick]:nth-of-type(5n+1):before
 {
+    color: #333;
     content: counter(numerals, upper-roman);
-    transform: translate(-50%, 50%) rotate( calc( var(--i) * 6deg - 60deg ) );
+    transform: translate(-50%, 50%) rotate( calc( calc( var(--i) * -6deg ) - 30deg ) );
 }
 
 div[part=tick]
@@ -78,10 +90,12 @@ div[part=tick]
     top: 50%;
     left: 50%;
 }
+
 div[part=tick]:before
 {
     position: absolute;
 }
+
 div[part=tick]:after
 {
     content: "";
@@ -104,10 +118,12 @@ div[part=hours]
 {
     animation: rotate 43200s infinite linear;
 }
+
 div[part=minutes]
 {
     animation: rotate 3600s infinite steps(60);
 }
+
 div[part=seconds]
 {
     animation: rotate 60s infinite steps(60);
@@ -122,6 +138,7 @@ div[part=seconds]:after
     position: absolute;
     transform-origin: 50% 100%;
 }
+
 div[part=hours]:after
 {
     height: 20%;
@@ -130,6 +147,7 @@ div[part=hours]:after
     width: 2.5%;
     border-radius: 50%/5%;
 }
+
 div[part=minutes]:after
 {
     height: 40%;
@@ -138,6 +156,7 @@ div[part=minutes]:after
     width: 2%;
     border-radius: 50%/4%;
 }
+
 div[part=seconds]:after
 {
     background-color: red;
